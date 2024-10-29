@@ -1,8 +1,28 @@
 package Day1;
+/*
 
+Given a 2D array arr[][] of dimension N*M, the task is to find the maximum sum sub-matrix from the matrix arr[][].
+
+Examples:
+
+Input: arr[][] = {{0, -2, -7, 0 },  { 9, 2, -6, 2 }, { -4, 1, -4, 1 }, { -1, 8, 0, -2}}
+Output: 15
+Explanation: The submatrix {{9, 2}, {-4, 1}, {-1, 8}} has a sum 15, which is the maximum sum possible.
+
+
+Input: arr[][] = {{1, 2}, {-5, -7}}
+Output: 3
+
+
+*
+* */
 
 public class MaximumSubmatrixSum {
     // Brute Force O(n^6)
+    /*
+    *
+    * find out all sub matrix and calculate every sub matrix sum
+    * */
     private long solveBrute(int[][] nums) {
         int rows = nums.length;
         if (rows == 0) return 0;
@@ -32,6 +52,10 @@ public class MaximumSubmatrixSum {
     }
 
     // Little Better O(n^4)
+    /*
+    *
+    * use prefix sum technique to optimize n^6 to n^4
+    * */
     private long solveBetterWay(int[][] nums) {
         int rows = nums.length;
         if (rows == 0) return 0;
@@ -86,6 +110,10 @@ public class MaximumSubmatrixSum {
     }
 
     // O(r*r*c*c)  r,r for rows , c-> for cols and last c is to calculate kadane max sum
+    /*
+    *  little modified version of approach 2,
+    *  Use Kadane, to find the max contiguous sum after row wise prefix sum
+    * */
     private long solveAnotherBetterUsingKadane(int[][] nums) {
         int rows = nums.length;
         if (rows == 0) return 0;
