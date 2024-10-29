@@ -1,5 +1,7 @@
 package Day1;
 
+import java.util.Arrays;
+
 public class MaximumSubmatrixSum {
     // Brute Force O(n^6)
     private long solveBrute(int[][] nums) {
@@ -31,7 +33,7 @@ public class MaximumSubmatrixSum {
     }
 
     // Little Better O(n^4)
-    private long solveLittleBetter(int[][] nums) {
+    private long solveBetterWay(int[][] nums) {
         int rows = nums.length;
         if (rows == 0) return 0;
         int cols = nums[0].length;
@@ -73,18 +75,54 @@ public class MaximumSubmatrixSum {
         return maxSum;
     }
 
+    private long maxContiguousSumSubArray(long[] nums) {
+        int n = nums.length;
+        long meh = 0, msf = Long.MIN_VALUE;
+        for (long v : nums) {
+            meh += v;
+            msf = Math.max(msf, meh);
+            if (meh < 0) meh = 0;
+        }
+        return msf;
+    }
+
+    // O(r*r*c*c)  r,r for rows , c-> for cols and last c is to calculate kadane max sum
+    private long solveAnotherBetterUsingKadane(int[][] nums) {
+        int rows = nums.length;
+        if (rows == 0) return 0;
+        int cols = nums[0].length;
+        MaximumSubmatrixSum maximumSubmatrixSum = new MaximumSubmatrixSum();
+
+        long maxSum = Long.MIN_VALUE;
+        for (int r1 = 0; r1 < rows; r1++) {
+            long[] prefixSumRowWise = new long[cols];
+            for (int r2 = r1; r2 < rows; r2++) {
+                for (int c = 0; c < cols; c++) {
+                    prefixSumRowWise[c] += nums[r2][c];
+                }
+                maxSum = Math.max(maxSum, maximumSubmatrixSum.maxContiguousSumSubArray(prefixSumRowWise));
+            }
+        }
+        return maxSum;
+    }
+
 
     public static void main(String[] args) {
         int[][] nums = {{-5, -4, -3},
                 {9, -2, -3},
                 {8, -2, -4}};
-        MaximumSubmatrixSum maximumSubmatrixSum=new MaximumSubmatrixSum();
+        MaximumSubmatrixSum maximumSubmatrixSum = new MaximumSubmatrixSum();
         long res = maximumSubmatrixSum.solveBrute(nums);
         System.out.println(res);
 
-        int[][] nums2={{1,2},{-5,-7}};
-        int[][] nums1={{0, -2, -7, 0 },  { 9, 2, -6, 2 }, { -4, 1, -4, 1 }, { -1, 8, 0, -2}};
-        long res1=maximumSubmatrixSum.solveLittleBetter(nums1);
+        int[][] nums2 = {{1, 2}, {-5, -7}};
+        int[][] nums1 = {{0, -2, -7, 0}, {9, 2, -6, 2}, {-4, 1, -4, 1}, {-1, 8, 0, -2}};
+        long res1 = maximumSubmatrixSum.solveBetterWay(nums1);
         System.out.println(res1);
+
+
+        long res2 = maximumSubmatrixSum.solveAnotherBetterUsingKadane(nums1);
+        System.out.println(res2);
+
     }
 }
