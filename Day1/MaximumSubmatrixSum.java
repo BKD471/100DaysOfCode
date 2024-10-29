@@ -1,6 +1,5 @@
 package Day1;
 
-import java.util.Arrays;
 
 public class MaximumSubmatrixSum {
     // Brute Force O(n^6)
@@ -38,18 +37,18 @@ public class MaximumSubmatrixSum {
         if (rows == 0) return 0;
         int cols = nums[0].length;
 
-        long[][] ps = new long[rows][cols];
+        long[][] prefixSum = new long[rows][cols];
 
         // row wise prefix sum
         for (int r = 0; r < rows; r++) {
-            ps[r][0] = nums[r][0];
-            for (int c = 1; c < cols; c++) ps[r][c] = ps[r][c - 1] + nums[r][c];
+            prefixSum[r][0] = nums[r][0];
+            for (int c = 1; c < cols; c++) prefixSum[r][c] = prefixSum[r][c - 1] + nums[r][c];
         }
 
         // col wise prefix sum
         for (int c = 0; c < cols; c++) {
             for (int r = 1; r < rows; r++) {
-                ps[r][c] += ps[r - 1][c];
+                prefixSum[r][c] += prefixSum[r - 1][c];
             }
         }
 
@@ -61,11 +60,11 @@ public class MaximumSubmatrixSum {
                 for (int r2 = r1; r2 < rows; r2++) {
                     for (int c2 = c1; c2 < cols; c2++) {
                         // bottom right (r2,c2)
-                        long left = (c1 > 0) ? ps[r2][c1 - 1] : 0;
-                        long up = (r1 > 0) ? ps[r1 - 1][c2] : 0;
-                        long topLeftCorner = (r1 > 0 && c1 > 0) ? ps[r1 - 1][c1 - 1] : 0;
+                        long left = (c1 > 0) ? prefixSum[r2][c1 - 1] : 0;
+                        long up = (r1 > 0) ? prefixSum[r1 - 1][c2] : 0;
+                        long topLeftCorner = (r1 > 0 && c1 > 0) ? prefixSum[r1 - 1][c1 - 1] : 0;
 
-                        long subMatrixSum = ps[r2][c2] - left - up + topLeftCorner;
+                        long subMatrixSum = prefixSum[r2][c2] - left - up + topLeftCorner;
                         maxSum = Math.max(maxSum, subMatrixSum);
                         //O(n^4)
                     }
@@ -123,6 +122,9 @@ public class MaximumSubmatrixSum {
 
         long res2 = maximumSubmatrixSum.solveAnotherBetterUsingKadane(nums1);
         System.out.println(res2);
+
+        long res3 = maximumSubmatrixSum.solveAnotherBetterUsingKadane(nums2);
+        System.out.println(res3);
 
     }
 }
