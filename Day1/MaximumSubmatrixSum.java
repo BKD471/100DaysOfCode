@@ -25,7 +25,7 @@ public class MaximumSubmatrixSum {
     * */
     private long solveBrute(int[][] nums) {
         int rows = nums.length;
-        if (rows == 0) return 0;
+        if (rows == 0) return 0L;
         int cols = nums[0].length;
 
         long maxSum = Long.MIN_VALUE;
@@ -36,7 +36,7 @@ public class MaximumSubmatrixSum {
                     for (int c2 = c1; c2 < cols; c2++) {
                         // bottom right (r2,c2)
 
-                        int subMatrixSum = 0;
+                        long subMatrixSum = 0L;
                         for (int row = r1; row <= r2; row++) {
                             for (int col = c1; col <= c2; col++) {
                                 subMatrixSum += nums[row][col];
@@ -58,7 +58,7 @@ public class MaximumSubmatrixSum {
     * */
     private long solveBetterWay(int[][] nums) {
         int rows = nums.length;
-        if (rows == 0) return 0;
+        if (rows == 0) return 0L;
         int cols = nums[0].length;
 
         long[][] prefixSum = new long[rows][cols];
@@ -99,12 +99,11 @@ public class MaximumSubmatrixSum {
     }
 
     private long maxContiguousSumSubArray(long[] nums) {
-        int n = nums.length;
-        long meh = 0, msf = Long.MIN_VALUE;
+        long meh = 0L, msf = Long.MIN_VALUE;
         for (long v : nums) {
             meh += v;
             msf = Math.max(msf, meh);
-            if (meh < 0) meh = 0;
+            if (meh < 0) meh = 0L;
         }
         return msf;
     }
@@ -116,7 +115,7 @@ public class MaximumSubmatrixSum {
     * */
     private long solveAnotherBetterUsingKadane(int[][] nums) {
         int rows = nums.length;
-        if (rows == 0) return 0;
+        if (rows == 0) return 0L;
         int cols = nums[0].length;
         MaximumSubmatrixSum maximumSubmatrixSum = new MaximumSubmatrixSum();
 
