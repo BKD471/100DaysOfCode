@@ -109,7 +109,7 @@ public class MaximumSubmatrixSum {
         return msf;
     }
 
-    // O(r*r*c*c)  r,r for rows , c-> for cols and last c is to calculate kadane max sum
+    // O(r*r*Max(c,kadane))  r,r for rows , c-> for cols and  kadane is to calculate kadane max sum
     /*
     *  little modified version of approach 2,
     *  Use Kadane, to find the max contiguous sum after row wise prefix sum

@@ -1,6 +1,7 @@
 package Day4;
 
 public class MatrixMedian {
+    //O(logC) c->column
     private int upperBound(final int[] nums, final int target) {
         int l = 0, h = nums.length - 1;
         int best = nums.length;
@@ -14,12 +15,14 @@ public class MatrixMedian {
         return best;
     }
 
+    // O(row*log(col))
     private int findCountOfNumbersLessThanEqualsPossibleMedian(final int[][] nums, final int possibleMedian) {
         int count = 0;
         for (int[] row : nums) count += upperBound(row, possibleMedian);
         return count;
     }
 
+    // O(log(max-min))XO(row*log(c))
     public int findMedian(int[][] nums) {
         final int rows = nums.length;
         if (rows == 0) return 0;
