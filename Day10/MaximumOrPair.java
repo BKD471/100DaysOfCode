@@ -16,9 +16,6 @@ public class MaximumOrPair {
             if (countOfSetBits >= 1) {
                 res = (res | 1 << bitPosition);
             }
-            // if count of set bits are less than 1 ,
-            // then we can no longer set the bit of resultant number
-            // but dont ignore any number because in future that can yield to max result
         }
         return res;
     }
