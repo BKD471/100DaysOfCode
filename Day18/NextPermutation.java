@@ -37,6 +37,8 @@ public class NextPermutation {
             int possibleNextGreater = nums[index];
             if (possibleNextGreater > pivotElement) {
                 int diff = possibleNextGreater - pivotElement;
+                // if there are duplicates swap the latest one
+                // after reversing, lsb most position will be the msb with the smaller number
                 if (diff <= minDiff) {
                     minDiff = diff;
                     targetElementIndex = index;
